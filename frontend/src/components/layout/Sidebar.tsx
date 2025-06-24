@@ -12,7 +12,6 @@ import {
   ClipboardList,
   Calendar,
   BarChart3,
-  Users,
   Brain,
   Settings,
   HelpCircle,

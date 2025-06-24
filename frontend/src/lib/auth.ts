@@ -30,7 +30,7 @@ export const authConfig: NextAuthConfig = {
       session.userId = token.userId as string;
       return session;
     },
-    async signIn({ user, account, profile }) {
+    async signIn() {
       // You can add custom logic here to save user to your database
       try {
         // Call your backend API to create/update user

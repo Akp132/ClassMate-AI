@@ -6,7 +6,6 @@ import {
   Plus,
   Calendar,
   BookOpen,
-  ClipboardList,
   BarChart3,
   Users,
   Brain,

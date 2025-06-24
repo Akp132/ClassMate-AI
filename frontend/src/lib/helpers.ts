@@ -180,7 +180,7 @@ export const sortBy = <T>(array: T[], key: keyof T, direction: 'asc' | 'desc' = 
 };
 
 // Local storage helpers
-export const getFromStorage = (key: string): any => {
+export const getFromStorage = (key: string): unknown => {
   if (typeof window === 'undefined') return null;
   
   try {
@@ -192,7 +192,7 @@ export const getFromStorage = (key: string): any => {
   }
 };
 
-export const setToStorage = (key: string, value: any): void => {
+export const setToStorage = (key: string, value: unknown): void => {
   if (typeof window === 'undefined') return;
   
   try {

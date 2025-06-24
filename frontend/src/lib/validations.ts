@@ -4,7 +4,7 @@ export const validateEmail = (email: string): boolean => {
   return emailRegex.test(email);
 };
 
-export const validateRequired = (value: any): boolean => {
+export const validateRequired = (value: unknown): boolean => {
   if (typeof value === 'string') {
     return value.trim().length > 0;
   }
@@ -101,36 +101,30 @@ export const gradeValidationRules = {
 
 // Validation helper function
 export const validateField = (
-  value: any,
-  rules: any
+  value: unknown,
+  rules: Record<string, unknown>
 ): { isValid: boolean; error?: string } => {
   if (rules.required && !validateRequired(value)) {
     return { isValid: false, error: 'This field is required' };
   }
-
   if (typeof value === 'string') {
-    if (rules.minLength && !validateMinLength(value, rules.minLength)) {
+    if (rules.minLength && !validateMinLength(value, rules.minLength as number)) {
       return { isValid: false, error: `Minimum length is ${rules.minLength}` };
     }
-
-    if (rules.maxLength && !validateMaxLength(value, rules.maxLength)) {
+    if (rules.maxLength && !validateMaxLength(value, rules.maxLength as number)) {
       return { isValid: false, error: `Maximum length is ${rules.maxLength}` };
     }
   }
-
   if (typeof value === 'number') {
-    if (rules.min !== undefined && value < rules.min) {
+    if (rules.min !== undefined && value < (rules.min as number)) {
       return { isValid: false, error: `Minimum value is ${rules.min}` };
     }
-
-    if (rules.max !== undefined && value > rules.max) {
+    if (rules.max !== undefined && value > (rules.max as number)) {
       return { isValid: false, error: `Maximum value is ${rules.max}` };
     }
   }
-
-  if (rules.options && !rules.options.includes(value)) {
+  if (rules.options && !(rules.options as unknown[]).includes(value)) {
     return { isValid: false, error: 'Invalid option selected' };
   }
-
   return { isValid: true };
 };

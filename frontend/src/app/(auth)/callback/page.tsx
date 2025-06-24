@@ -39,7 +39,7 @@ export default function CallbackPage() {
           </div>
           <h1 className="text-2xl font-bold">Authentication Failed</h1>
           <p className="text-muted-foreground max-w-md">
-            We encountered an error during sign-in. You'll be redirected to try again.
+            We encountered an error during sign-in. You&#39;ll be redirected to try again.
           </p>
           <div className="flex justify-center">
             <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />

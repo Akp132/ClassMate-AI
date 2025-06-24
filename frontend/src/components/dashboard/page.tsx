@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { StatsCards } from '@/components/dashboard/StatsCards';
 import { TodaySchedule } from '@/components/dashboard/TodaySchedule';
@@ -19,7 +19,7 @@ export default function DashboardPage() {
   const { state, dispatch } = useAppContext();
   
   // Fetch dashboard stats
-  const { data: statsData, loading: statsLoading, execute: fetchStats } = useApiQuery(
+  const { data: statsData, loading: statsLoading } = useApiQuery(
     () => dashboardApi.getStats(),
     { immediate: true }
   );

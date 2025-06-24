@@ -17,8 +17,8 @@ interface UseApiState<T> {
   error: any;
 }
 
-export function useApi<T = any>(
-  apiCall: (...args: any[]) => Promise<T>,
+export function useApi<T = unknown>(
+  apiCall: (...args: unknown[]) => Promise<T>,
   options: UseApiOptions<T> = {}
 ) {
   const [state, setState] = useState<UseApiState<T>>({
@@ -30,43 +30,35 @@ export function useApi<T = any>(
   const { toast } = useToast();
 
   const execute = useCallback(
-    async (...args: any[]) => {
+    async (...args: unknown[]) => {
       try {
         setState(prev => ({ ...prev, loading: true, error: null }));
-        
         const result = await apiCall(...args);
-        
         setState(prev => ({ ...prev, data: result, loading: false }));
-        
         // Handle success
         if (options.onSuccess) {
           options.onSuccess(result);
         }
-        
         if (options.showSuccessToast && options.successMessage) {
           toast({
             title: 'Success',
             description: options.successMessage,
           });
         }
-        
         return result;
-      } catch (error: any) {
+      } catch (error) {
         setState(prev => ({ ...prev, error, loading: false }));
-        
         // Handle error
         if (options.onError) {
           options.onError(error);
         }
-        
         if (options.showErrorToast !== false) {
           toast({
             title: 'Error',
-            description: error?.message || 'Something went wrong',
+            description: (error as Error)?.message || 'Something went wrong',
             variant: 'destructive',
           });
         }
-        
         throw error;
       }
     },
@@ -89,8 +81,8 @@ export function useApi<T = any>(
 }
 
 // Specialized hooks for different API operations
-export function useApiMutation<T = any>(
-  apiCall: (...args: any[]) => Promise<T>,
+export function useApiMutation<T = unknown>(
+  apiCall: (...args: unknown[]) => Promise<T>,
   options: UseApiOptions<T> = {}
 ) {
   return useApi(apiCall, {
@@ -99,7 +91,7 @@ export function useApiMutation<T = any>(
   });
 }
 
-export function useApiQuery<T = any>(
+export function useApiQuery<T = unknown>(
   apiCall: () => Promise<T>,
   options: UseApiOptions<T> & { immediate?: boolean } = {}
 ) {
@@ -110,7 +102,6 @@ export function useApiQuery<T = any>(
 
   // Auto-execute on mount if immediate is true
   const { execute } = api;
-  
   useState(() => {
     if (options.immediate !== false) {
       execute();

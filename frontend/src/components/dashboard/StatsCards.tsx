@@ -1,17 +1,14 @@
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { 
-  BookOpen, 
-  ClipboardList, 
-  Calendar, 
-  BarChart3, 
+  BookOpen,
+  ClipboardList,
+  Calendar,
+  BarChart3,
   TrendingUp,
   TrendingDown,
-  Minus,
-  Users,
-  CheckCircle
+  Minus
 } from 'lucide-react';
 import type { DashboardStats } from '../../types';
 

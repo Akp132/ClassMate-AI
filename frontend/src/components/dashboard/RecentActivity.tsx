@@ -11,7 +11,6 @@ import {
   Calendar,
   BarChart3,
   Users,
-  FileText,
   Activity
 } from 'lucide-react';
 import { getRelativeDate } from '../../lib/helpers';
