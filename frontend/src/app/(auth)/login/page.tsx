@@ -166,7 +166,7 @@ export default function LoginPage() {
 
             {/* Benefits List */}
             <div className="space-y-3">
-              <h3 className="font-semibold text-lg">What you'll get:</h3>
+              <h3 className="font-semibold text-lg">What you&apos;ll get:</h3>
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                 {benefits.map((benefit, index) => (
                   <div key={index} className="flex items-center gap-2">

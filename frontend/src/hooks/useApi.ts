@@ -5,7 +5,7 @@ import { useToast } from './useToast';
 
 interface UseApiOptions<T> {
   onSuccess?: (data: T) => void;
-  onError?: (error: any) => void;
+  onError?: (error: unknown) => void;
   showSuccessToast?: boolean;
   showErrorToast?: boolean;
   successMessage?: string;
@@ -14,7 +14,7 @@ interface UseApiOptions<T> {
 interface UseApiState<T> {
   data: T | null;
   loading: boolean;
-  error: any;
+  error: unknown;
 }
 
 export function useApi<T = unknown>(
