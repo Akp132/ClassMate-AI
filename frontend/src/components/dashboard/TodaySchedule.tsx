@@ -94,7 +94,7 @@ export function TodaySchedule() {
   return (
     <Card className="h-fit">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-        <CardTitle className="text-lg font-semibold">Today's Schedule</CardTitle>
+        <CardTitle className="text-lg font-semibold">Today&apos;s Schedule</CardTitle>
         <Button variant="ghost" size="sm">
           <Calendar className="h-4 w-4 mr-2" />
           View All
