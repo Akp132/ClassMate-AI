@@ -1,25 +1,9 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuthContext } from '../context/AuthContext';
 import { Zap } from 'lucide-react';
 
 export default function HomePage() {
-  const router = useRouter();
-  const { isAuthenticated, isLoading } = useAuthContext();
-
-  useEffect(() => {
-    if (!isLoading) {
-      if (isAuthenticated) {
-        router.push('/dashboard');
-      } else {
-        router.push('/login');
-      }
-    }
-  }, [isAuthenticated, isLoading, router]);
-
-  // Show loading while checking authentication
+  // Show dashboard landing page directly, no authentication checks
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
       <div className="text-center space-y-6">
