@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect } from 'react';
+import { Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuthContext } from '../../../context/AuthContext';
 import { Zap, CheckCircle, AlertCircle } from 'lucide-react';
 
-export default function CallbackPage() {
+function CallbackPageInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { isAuthenticated, isLoading } = useAuthContext();
@@ -110,5 +111,13 @@ export default function CallbackPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function CallbackPage() {
+  return (
+    <Suspense fallback={<div className="flex min-h-screen items-center justify-center">Loading...</div>}>
+      <CallbackPageInner />
+    </Suspense>
   );
 }
