@@ -1,0 +1,174 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  picture   String?
+  googleId  String?  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  classes     Class[]
+  assignments Assignment[]
+  grades      Grade[]
+  attendance  AttendanceRecord[]
+  events      CalendarEvent[]
+
+  @@map("users")
+}
+
+model Class {
+  id                String   @id @default(cuid())
+  name              String
+  code              String?
+  instructor        String?
+  room              String?
+  color             String   @default("#3B82F6")
+  description       String?
+  googleClassroomId String?  @unique
+  userId            String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Schedule as JSON
+  schedule Json // { days: string[], startTime: string, endTime: string }
+
+  // Relations
+  user        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assignments Assignment[]
+  grades      Grade[]
+  attendance  AttendanceRecord[]
+
+  @@map("classes")
+}
+
+model Assignment {
+  id                String           @id @default(cuid())
+  title             String
+  description       String?
+  dueDate           DateTime
+  priority          AssignmentPriority @default(MEDIUM)
+  status            AssignmentStatus   @default(PENDING)
+  points            Int              @default(100)
+  submissionUrl     String?
+  googleClassroomId String?
+  classId           String
+  userId            String
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  // Relations
+  user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  class       Class             @relation(fields: [classId], references: [id], onDelete: Cascade)
+  grade       Grade?
+  attachments AssignmentFile[]
+
+  @@map("assignments")
+}
+
+model Grade {
+  id           String   @id @default(cuid())
+  score        Float
+  maxScore     Float    @default(100)
+  percentage   Float
+  letterGrade  String
+  feedback     String?
+  gradeDate    DateTime @default(now())
+  assignmentId String   @unique
+  classId      String
+  userId       String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  class      Class      @relation(fields: [classId], references: [id], onDelete: Cascade)
+  assignment Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+
+  @@map("grades")
+}
+
+model AttendanceRecord {
+  id        String           @id @default(cuid())
+  date      DateTime
+  status    AttendanceStatus @default(PRESENT)
+  notes     String?
+  classId   String
+  userId    String
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  // Relations
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  class Class @relation(fields: [classId], references: [id], onDelete: Cascade)
+
+  @@unique([classId, userId, date])
+  @@map("attendance_records")
+}
+
+model CalendarEvent {
+  id            String   @id @default(cuid())
+  title         String
+  description   String?
+  startTime     DateTime
+  endTime       DateTime
+  location      String?
+  googleEventId String?
+  userId        String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("calendar_events")
+}
+
+model AssignmentFile {
+  id           String   @id @default(cuid())
+  filename     String
+  originalName String
+  url          String
+  size         Int
+  mimeType     String
+  assignmentId String
+  createdAt    DateTime @default(now())
+
+  // Relations
+  assignment Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+
+  @@map("assignment_files")
+}
+
+// Enums
+enum AssignmentPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum AssignmentStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  OVERDUE
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  LATE
+  EXCUSED
+}

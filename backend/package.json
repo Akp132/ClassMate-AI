@@ -1,0 +1,57 @@
+{
+  "name": "classmate-ai-backend",
+  "version": "1.0.0",
+  "description": "Backend API server for ClassMate AI student productivity app",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "db:migrate": "prisma migrate dev",
+    "db:push": "prisma db push",
+    "db:seed": "tsx src/scripts/seed.ts",
+    "db:studio": "prisma studio",
+    "lint": "eslint src --ext .ts,.tsx",
+    "test": "jest"
+  },
+  "keywords": ["express", "typescript", "api", "education", "student", "productivity"],
+  "author": "ClassMate AI Team",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^5.21.1",
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "morgan": "^1.10.0",
+    "dotenv": "^16.4.5",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "zod": "^3.23.8",
+    "multer": "^1.4.5-lts.1",
+    "googleapis": "^144.0.0",
+    "express-rate-limit": "^7.4.1",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/cors": "^2.8.17",
+    "@types/morgan": "^1.9.9",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/multer": "^1.4.12",
+    "@types/uuid": "^10.0.0",
+    "@types/node": "^20.16.10",
+    "@types/jest": "^29.5.13",
+    "@typescript-eslint/eslint-plugin": "^8.8.1",
+    "@typescript-eslint/parser": "^8.8.1",
+    "eslint": "^9.12.0",
+    "jest": "^29.7.0",
+    "prisma": "^5.21.1",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.3",
+    "ts-jest": "^29.2.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
