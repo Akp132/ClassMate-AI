@@ -35,6 +35,13 @@
 
 ## 🏗️ Technical Architecture
 
+### Full-Stack Overview
+- **Frontend**: Next.js 15 + React 19 + TypeScript
+- **Backend**: Node.js + Express + TypeScript  
+- **Database**: PostgreSQL with Prisma ORM (SQLite for development)
+- **Authentication**: JWT tokens with secure middleware
+- **API**: RESTful endpoints with Zod validation
+
 ### Frontend Stack
 - **Framework**: Next.js 15.3.3 with React 19
 - **Language**: TypeScript for type safety
@@ -45,6 +52,16 @@
 - **HTTP Client**: Axios for API communication
 - **Charts**: Recharts for data visualization
 - **Calendar**: React Big Calendar for schedule management
+
+### Backend Stack
+- **Runtime**: Node.js with Express.js framework
+- **Language**: TypeScript for consistent type safety
+- **Database**: Prisma ORM with PostgreSQL (production) / SQLite (development)
+- **Authentication**: JWT tokens with secure HTTP-only patterns
+- **Validation**: Zod schemas for request/response validation
+- **Security**: Helmet, CORS, rate limiting, input sanitization
+- **File Storage**: Local filesystem (expandable to cloud storage)
+- **API Design**: RESTful endpoints with consistent response format
 
 ### Key Dependencies
 ```json
@@ -63,32 +80,45 @@
 
 ### Project Structure
 ```
-frontend/
-├── src/
-│   ├── app/                    # Next.js App Router pages
-│   │   ├── (auth)/            # Authentication pages
-│   │   ├── api/               # API routes
-│   │   ├── layout.tsx         # Root layout
-│   │   └── page.tsx           # Homepage (Dashboard)
-│   ├── components/            # Reusable React components
-│   │   ├── dashboard/         # Dashboard-specific components
-│   │   ├── layout/            # Layout components (Navbar, Sidebar)
-│   │   └── ui/                # Base UI components
-│   ├── context/               # React Context providers
-│   │   ├── AuthContext.tsx    # Authentication state
-│   │   ├── AppContext.tsx     # Global app state
-│   │   └── ThemeContext.tsx   # Theme management
-│   ├── hooks/                 # Custom React hooks
-│   │   ├── useApi.ts          # API interaction hooks
-│   │   ├── useAuth.ts         # Authentication hooks
-│   │   └── useLocalStorage.ts # Local storage management
-│   ├── lib/                   # Utility libraries
-│   │   ├── api.ts             # API client configuration
-│   │   ├── constants.ts       # App constants
-│   │   └── utils.ts           # Helper functions
-│   └── types/                 # TypeScript type definitions
-├── public/                    # Static assets
-└── package.json              # Dependencies and scripts
+ClassMate-AI/
+├── frontend/                    # Next.js React application
+│   ├── src/
+│   │   ├── app/                # Next.js App Router pages
+│   │   │   ├── (auth)/         # Authentication pages
+│   │   │   ├── api/            # Frontend API routes
+│   │   │   ├── layout.tsx      # Root layout
+│   │   │   └── page.tsx        # Homepage (Dashboard)
+│   │   ├── components/         # Reusable React components
+│   │   │   ├── dashboard/      # Dashboard-specific components
+│   │   │   ├── layout/         # Layout components (Navbar, Sidebar)
+│   │   │   └── ui/             # Base UI components
+│   │   ├── context/            # React Context providers
+│   │   │   ├── AuthContext.tsx # Authentication state
+│   │   │   ├── AppContext.tsx  # Global app state
+│   │   │   └── ThemeContext.tsx# Theme management
+│   │   ├── hooks/              # Custom React hooks
+│   │   │   ├── useApi.ts       # API interaction hooks
+│   │   │   ├── useAuth.ts      # Authentication hooks
+│   │   │   └── useLocalStorage.ts # Local storage management
+│   │   ├── lib/                # Utility libraries
+│   │   │   ├── api.ts          # API client configuration
+│   │   │   ├── constants.ts    # App constants
+│   │   │   └── utils.ts        # Helper functions
+│   │   └── types/              # TypeScript type definitions
+│   ├── public/                 # Static assets
+│   └── package.json           # Frontend dependencies
+├── backend/                    # Express.js API server
+│   ├── src/
+│   │   ├── controllers/        # Route handlers and business logic
+│   │   ├── middleware/         # Auth, validation, error handling
+│   │   ├── routes/            # API endpoint definitions
+│   │   ├── types/             # TypeScript type definitions
+│   │   ├── utils/             # Helper functions and validation
+│   │   └── server-working.ts  # Main application entry
+│   ├── prisma/
+│   │   └── schema.prisma      # Database schema
+│   └── package.json           # Backend dependencies
+└── README.md                  # This file
 ```
 
 ## 🚀 Getting Started
@@ -96,13 +126,50 @@ frontend/
 ### Prerequisites
 - Node.js 18+ and npm/yarn
 - Modern web browser
-- Backend API server (for full functionality)
 
-### Installation
+### Quick Setup (Full Stack)
 
 1. **Clone the repository**
    ```bash
    git clone https://github.com/Akp132/ClassMate-AI.git
+   cd ClassMate-AI
+   ```
+
+2. **Start the Backend API Server**
+   ```bash
+   cd backend
+   npm install
+   cp .env.example .env
+   npm run dev
+   ```
+   Backend will run on http://localhost:5000
+
+3. **Start the Frontend Application**
+   ```bash
+   cd ../frontend
+   npm install
+   npm run dev
+   ```
+   Frontend will run on http://localhost:3000
+
+### Backend API Server
+
+The backend provides a RESTful API with:
+- **Authentication**: JWT-based login system  
+- **Classes**: Course management and scheduling
+- **Assignments**: Task tracking with priorities and due dates
+- **Attendance**: Class attendance recording and analytics
+- **Grades**: Grade management with GPA calculation
+- **Calendar**: Event management and scheduling
+- **Dashboard**: Statistics and insights
+
+**API Endpoints**: http://localhost:5000/api
+**Documentation**: http://localhost:5000/api
+
+### Frontend Installation (Standalone)
+
+1. **Navigate to frontend directory**
+   ```bash
    cd ClassMate-AI/frontend
    ```
 
