@@ -1,6 +1,8 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ClassMate AI Frontend
 
-## Getting Started
+This is the frontend application for ClassMate AI, built with [Next.js](https://nextjs.org) 15 and React 19.
+
+## 🚀 Quick Start
 
 First, run the development server:
 
@@ -8,29 +10,181 @@ First, run the development server:
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the ClassMate AI dashboard.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── (auth)/            # Authentication pages (login, callback)
+│   ├── api/               # API routes
+│   ├── layout.tsx         # Root layout with providers
+│   └── page.tsx           # Dashboard homepage
+├── components/            # React components
+│   ├── dashboard/         # Dashboard-specific components
+│   ├── layout/            # Layout components (AppLayout, Navbar, Sidebar)
+│   └── ui/                # Reusable UI components (Button, Card, etc.)
+├── context/               # React Context providers
+│   ├── AuthContext.tsx    # Authentication state management
+│   ├── AppContext.tsx     # Global application state
+│   └── ThemeContext.tsx   # Theme management (light/dark)
+├── hooks/                 # Custom React hooks
+│   ├── useApi.ts          # API interaction hooks
+│   ├── useAuth.ts         # Authentication hooks
+│   └── useLocalStorage.ts # Local storage utilities
+├── lib/                   # Utility libraries
+│   ├── api.ts             # Axios API client
+│   ├── constants.ts       # Application constants
+│   └── utils.ts           # Helper functions
+└── types/                 # TypeScript type definitions
+    ├── auth.ts            # Authentication types
+    ├── classes.ts         # Class management types
+    └── index.ts           # Exported types
+```
 
-## Learn More
+## 🛠️ Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Framework**: Next.js 15.3.3 with App Router
+- **React**: 19.0.0 with latest features
+- **TypeScript**: Full type safety
+- **Styling**: Tailwind CSS 4 with custom components
+- **UI Components**: Radix UI primitives
+- **Icons**: Lucide React
+- **Authentication**: NextAuth.js 5.0 (beta)
+- **HTTP Client**: Axios with interceptors
+- **Charts**: Recharts for data visualization
+- **Calendar**: React Big Calendar
+- **Forms**: React Hook Form
+- **State Management**: React Context + useReducer
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔧 Available Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `npm run dev` - Start development server with Turbopack
+- `npm run build` - Build production application
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint for code quality
 
-## Deploy on Vercel
+## ⚙️ Environment Setup
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Create a `.env.local` file in the frontend directory:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```env
+# Required
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-secret-key-here
+NEXT_PUBLIC_API_URL=http://localhost:5000
+
+# Optional (for Google Classroom integration)
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+```
+
+## 🎨 Key Features
+
+### Dashboard Components
+- **WelcomeSection**: Personalized greeting with motivational messages
+- **StatsCards**: Key metrics (classes, assignments, attendance, GPA)
+- **TodaySchedule**: Current and upcoming class schedule
+- **UpcomingAssignments**: Assignment management with priority levels
+- **AIAssistantPreview**: AI-powered study recommendations
+- **QuickActions**: Fast access to common tasks
+- **RecentActivity**: Timeline of recent academic activities
+
+### AI Assistant Features
+- **Study Plan Optimization**: Personalized study schedules
+- **Assignment Prioritization**: Smart task prioritization
+- **Performance Insights**: Academic progress analysis
+- **Deadline Alerts**: Priority-based notifications
+
+### Layout Components
+- **AppLayout**: Main application wrapper with sidebar navigation
+- **Navbar**: Top navigation with user menu and theme toggle
+- **Sidebar**: Collapsible navigation menu
+- **ThemeProvider**: Dark/light theme management
+
+## 🔗 API Integration
+
+The frontend connects to a backend API expected at `http://localhost:5000`. Key API endpoints:
+
+- `GET /api/dashboard/stats` - Dashboard statistics
+- `GET /api/classes` - Class management
+- `GET /api/assignments` - Assignment CRUD
+- `GET /api/attendance` - Attendance tracking
+- `GET /api/grades` - Grade management
+- `POST /api/auth/*` - Authentication
+
+## 🎯 Development Guidelines
+
+### Component Patterns
+- Use functional components with hooks
+- Implement container/presentational pattern for complex components
+- Leverage compound components for related UI elements
+- Use TypeScript interfaces for all props
+
+### State Management
+- Use Context API for global state
+- Implement useReducer for complex state logic
+- Create custom hooks for reusable logic
+- Prefer local state for component-specific data
+
+### Styling
+- Use Tailwind CSS utility classes
+- Create reusable components in `components/ui/`
+- Follow responsive design principles
+- Implement consistent spacing and typography
+
+## 🔍 Troubleshooting
+
+### Common Issues
+
+1. **Font Loading Errors**: May occur due to network restrictions; app works with fallback fonts
+2. **API Connection Refused**: Ensure backend server is running on port 5000
+3. **Authentication Issues**: Check NEXTAUTH_SECRET and provider configuration
+4. **Build Failures**: Clear `.next` cache and reinstall dependencies
+
+### Performance Tips
+- Use React.memo() for expensive components
+- Implement lazy loading for routes
+- Optimize images with Next.js Image component
+- Enable Turbopack for faster development builds
+
+## 📱 Mobile Support
+
+The application is fully responsive and includes:
+- Mobile-optimized navigation
+- Touch-friendly interactions
+- Responsive grid layouts
+- Mobile-first design approach
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+1. Connect your GitHub repository to Vercel
+2. Configure environment variables
+3. Deploy automatically on push to main branch
+
+### Self-Hosted
+1. Run `npm run build` to create production build
+2. Run `npm run start` to serve the application
+3. Configure reverse proxy (nginx) if needed
+
+## 📚 Learn More
+
+- [Next.js Documentation](https://nextjs.org/docs) - Learn about Next.js features
+- [React Documentation](https://react.dev/) - React concepts and patterns
+- [Tailwind CSS](https://tailwindcss.com/docs) - Utility-first CSS framework
+- [Radix UI](https://www.radix-ui.com/docs) - Accessible component primitives
+
+## 🤝 Contributing
+
+1. Follow the existing code style and patterns
+2. Add TypeScript types for new features
+3. Test on multiple screen sizes
+4. Update documentation for significant changes
+5. Run linting before committing
+
+For detailed setup instructions, see [SETUP.md](../SETUP.md)
+For technical documentation, see [TECHNICAL.md](../TECHNICAL.md)
